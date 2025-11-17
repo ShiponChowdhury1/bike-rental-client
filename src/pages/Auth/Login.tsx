@@ -22,7 +22,10 @@ import { verifyToken } from "@/utils/verifyToken";
 import { setUser } from "@/redux/features/auth/authSlice";
 import LoginAnimate from "./LoginAnimate";
 import { Eye, EyeOff } from "lucide-react"; // Assuming you're using an icon library like Lucide
-
+import googleIcon from '@/assets/auth/google.png'
+import linkedin from '@/assets/auth/linkedin.png'
+import github from '@/assets/auth/github.png'
+import logo from "@/assets/logo.png";
 const Login = () => {
   const navigate = useNavigate();
   const [login, { isLoading }] = useLoginMutation();
@@ -51,50 +54,58 @@ const Login = () => {
   };
 
   return (
-    <section className="my-8 px-4 md:px-8">
-      <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-evenly">
-        <div className="w-full max-w-md lg:max-w-lg mb-8 lg:mb-0">
-          <LoginAnimate />
-        </div>
-        <div className="w-full max-w-md lg:max-w-lg">
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-4 bg-white dark:bg-gray-800 p-6 md:p-8 rounded-md shadow-sm"
-            >
-              <SignupFormField
-                name="email"
-                label="Email"
-                placeholder="Enter your email"
-                inputType="email"
-                formControl={form.control}
-              />
-              <SignupFormField
-                name="password"
-                label="Password"
-                placeholder="Enter your password"
-                description="At least 8 characters."
-                inputType="password"
-                formControl={form.control}
-              />
-              <Button className="bg-[#F43650] w-full" type="submit">
-                {isLoading ? "Logging..." : "Login"}
-              </Button>
-            </form>
-          </Form>
+    <div className="min-h-screen flex flex-col lg:flex-row items-center justify-center p-4 ">
+      <div className="w-full max-w-md lg:max-w-lg mb-8 lg:mb-0">
+        <LoginAnimate />
+      </div>
 
-          <h3 className="my-4 text-center">
-            If you don't have an account:{" "}
+      <div className="lg:w-1/3 w-full bg-white p-10 rounded-2xl shadow-2xl">
+        <img src={logo} alt="bike rental logo" className="mx-auto mb-4 w-[100px] h-[100px]" />
+        <div className="text-center">
+          <h4 className="text-4xl font-extrabold ">Sign In</h4>
+          <div className="flex justify-center items-center gap-2 mt-2 mb-6">
+            <p>New to Bike Rental? </p>
             <Link
-              className="text-[#F43650] font-semibold hover:font-bold"
+              className="text-[#F43650] font-semibold underline"
               to={"/auth/register"}
             >
-              Sign Up now
+              Create an Account
             </Link>
-          </h3>
+          </div>
+        </div>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4 bg-white dark:bg-gray-800 p-6 md:p-8"
+          >
+            <SignupFormField
+              name="email"
+              label="Username or Email Address"
+              placeholder="Enter your email"
+              inputType="email"
+              formControl={form.control}
+            />
+            <SignupFormField
+              name="password"
+              label="Password"
+              placeholder="Enter your password"
+              description="At least 8 characters."
+              inputType="password"
+              formControl={form.control}
+            />
+            <Button className="bg-[#002147]  text-white w-full" type="submit">
+              {isLoading ? "Logging..." : "Login"}
+            </Button>
+            <p className="text-center">Need to find <span className="text-[#F43650] font-semibold underline"> your username</span> or your <span className="text-[#F43650] font-semibold underline">password?</span></p>
+          </form>
+        </Form>
+            <div className="flex justify-center items-center gap-4">
+                           <Button variant="secondary" className="w-[120px] h-[40px] border-2 border-[#44AA62] p-4"><img src={googleIcon} alt="" className="w-[48px] h-[48px]"/>Google</Button>
+                           <Button className="w-[120px] h-[40px]  border-2 border-[#812290] p-4 " variant="secondary" > <img src={github} alt="" className="w-[40px] h-[40px]" /> Github</Button>
+                           <Button className="w-[120px] h-[40px] border border-[#0066C8] p-4 " variant="secondary" ><img src={linkedin} alt="" className="w-[48px] h-[48px]" /> Linkedin</Button>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
@@ -123,7 +134,11 @@ const SignupFormField: React.FC<AuthFormFieldProps> = ({
             <div className="relative">
               <Input
                 placeholder={placeholder}
-                type={showPassword && inputType === "password" ? "text" : inputType || "text"}
+                type={
+                  showPassword && inputType === "password"
+                    ? "text"
+                    : inputType || "text"
+                }
                 {...field}
                 className="w-full pr-10"
               />

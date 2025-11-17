@@ -20,7 +20,10 @@ import { useSignUpMutation } from "@/redux/features/auth/authApi";
 import { toast } from "@/components/ui/use-toast";
 import RegisterAnimate from "./RegisterAnimate";
 import { Eye, EyeOff } from "lucide-react"; // Assuming you're using an icon library like Lucide
-
+import logo from "@/assets/logo.png";
+import googleIcon from '@/assets/auth/google.png'
+import linkedin from '@/assets/auth/linkedin.png'
+import github from '@/assets/auth/github.png'
 const Register = () => {
   const navigate = useNavigate();
   const [signUp, { isLoading }] = useSignUpMutation();
@@ -63,16 +66,28 @@ const Register = () => {
   };
 
   return (
-    <section className="my-8 px-4 md:px-8">
-      <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between">
+     <div className="min-h-screen flex flex-col lg:flex-row items-center justify-center p-4 gap-24">
         <div className="w-full max-w-md lg:max-w-lg mb-8 lg:mb-0">
           <RegisterAnimate />
         </div>
-        <div className="w-full max-w-md lg:max-w-lg">
+        <div className="lg:w-1/3 w-full bg-white p-10 rounded-2xl shadow-2xl">
+         <img src={logo} alt="bike rental logo" className="mx-auto mb-4 w-[100px] h-[100px]" />
+         <div className="text-center">
+                  <h4 className="text-4xl font-extrabold ">Create an Account</h4>
+                  <div className="flex justify-center items-center gap-2 mt-2 mb-6">
+                    <p>Already have an account? </p>
+                    <Link
+                      className="text-[#F43650] font-semibold underline"
+                      to={"/auth"}
+                    >
+                     Sign In
+                    </Link>
+                  </div>
+                </div>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-4 bg-white dark:bg-gray-800 p-6 md:p-8 rounded-md shadow-sm"
+              className="space-y-4 bg-white  p-6 md:p-8 rounded-md"
             >
               <SignupFormField
                 name="name"
@@ -110,24 +125,21 @@ const Register = () => {
                 inputType="text"
                 formControl={form.control}
               />
-              <Button className="bg-green-500 w-full" type="submit">
+              <Button className="bg-[#002147] w-full" type="submit">
                 {isLoading ? "Signing..." : "Sign Up"}
               </Button>
+               <p className="text-center">By creating an account, you agree to Bike Rental <span className="text-[#F43650] font-semibold underline">Terms</span> and <span className="text-[#F43650] font-semibold underline">Privacy</span></p>
             </form>
+             
           </Form>
-
-          <h3 className="my-4 text-center">
-            Already have an account?{" "}
-            <Link
-              className="text-[#F43650] font-semibold hover:font-bold"
-              to={"/auth"}
-            >
-              Login now
-            </Link>
-          </h3>
+          
+              <div className="flex justify-center items-center gap-4">
+                           <Button variant="secondary" className="w-[120px] h-[40px] border-2 border-[#44AA62] p-4"><img src={googleIcon} alt="" className="w-[48px] h-[48px]"/>Google</Button>
+                           <Button className="w-[120px] h-[40px]  border-2 border-[#812290] p-4 " variant="secondary" > <img src={github} alt="" className="w-[40px] h-[40px]" /> Github</Button>
+                           <Button className="w-[120px] h-[40px] border border-[#0066C8] p-4 " variant="secondary" ><img src={linkedin} alt="" className="w-[48px] h-[48px]" /> Linkedin</Button>
+                      </div>
         </div>
       </div>
-    </section>
   );
 };
 
